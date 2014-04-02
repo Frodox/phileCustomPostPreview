@@ -15,18 +15,30 @@
 
 class PhileCustomPostPreview extends \Phile\Plugin\AbstractPlugin implements \Phile\EventObserverInterface
 {
-
 	public function __construct() {
-		\Phile\Event::registerEvent('after_parse_content', $this);
+		\Phile\Event::registerEvent('template_engine_registered', $this);
 	}
 
 	public function on($eventKey, $data = null)
 	{
-		if ($eventKey == 'after_parse_content')
+		if ($eventKey == 'template_engine_registered')
 		{
+			$custom_post_preview = new Twig_SimpleFilter('custom_post_preview', function ($string) 
+			{
+				$pos = 0;
+				$pos = stripos ( $string, $this->settings["read_more_tag"] );
+				$cutted = $string;
 
+				if ($pos !== false) {
+					/* if we find $read_more_tag in the content(parsed one) */
+					/* NEED: php 5.3.0+ */
+					$cutted = stristr($string, $this->settings["read_more_tag"], true);
+					$cutted .= $this->settings["read_more_text"];
+				}
+
+				return $cutted;
+			});
+			$data['engine']->addFilter($custom_post_preview);
 		}
-
 	}
-
 }
