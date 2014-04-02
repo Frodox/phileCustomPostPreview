@@ -5,7 +5,8 @@ Phile Custom Post Preview Plugin
 
 Plugin allows to customize length of the post-preview text. It is implemented as
 twig-filter, which looks for `<!--cut-here-->` html-tag and return only text before this tag.
-If tag not found -- return all givent text. (smth like `<!--more-->` tag in WordPress)
+If tag not found -- return all given text.
+(smth like `<!--more-->` tag in WordPress)
 
 
 ## Installation
@@ -25,7 +26,7 @@ If tag not found -- return all givent text. (smth like `<!--more-->` tag in Word
 
 ### Setup theme
 
-Apply this twig-filter to needed (post-preview) text. It may looks like:
+Apply this twig-filter (`custom_post_preview`) to needed (post-preview) text. It may looks like:
 
 ```html
 {% for page in pages %}
@@ -42,7 +43,7 @@ Apply this twig-filter to needed (post-preview) text. It may looks like:
 
 ## Configuration
 
-In `config.php` file, you can change:
+In `config.php` file you can change:
 
 * `'read_more_tag'` -- which tag mean `<!--more-->` tag. (`"<!--cut-here-->"` by default)
 * `'read_more_text'` -- which text to add after cutted text. (`" &hellip;"` by default)
