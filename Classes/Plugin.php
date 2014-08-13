@@ -1,4 +1,8 @@
 <?php
+/**
+ * Plugin class
+ */
+namespace Phile\Plugin\Frodox\PhileCustomPostPreview;
 
 /**
  * Phile Custom Post Preview Plugin
@@ -12,8 +16,7 @@
  * @link https://github.com/Jecomire/phileCustomPostPreview
  * @license http://opensource.org/licenses/gpl-3.0.html
  */
-
-class PhileCustomPostPreview extends \Phile\Plugin\AbstractPlugin implements \Phile\EventObserverInterface
+class Plugin extends \Phile\Plugin\AbstractPlugin implements \Phile\Gateway\EventObserverInterface
 {
 	public function __construct() {
 		\Phile\Event::registerEvent('template_engine_registered', $this);
@@ -38,7 +41,7 @@ class PhileCustomPostPreview extends \Phile\Plugin\AbstractPlugin implements \Ph
 	{
 		if ($eventKey == 'template_engine_registered')
 		{
-			$custom_post_preview = new Twig_SimpleFilter('custom_post_preview', array($this, 'apply'));
+			$custom_post_preview = new \Twig_SimpleFilter('custom_post_preview', array($this, 'apply'));
 			$data['engine']->addFilter($custom_post_preview);
 		}
 	}
